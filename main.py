@@ -115,12 +115,12 @@ best_solution = genetic_algorithm(operation, dataset_sample, protected_attribute
 # Print and save the best solution found by the genetic algorithm
 if operation == 'dataset':
     print(
-        f"Best solution for dataset: Technique={best_solution[0]}, Model={best_solution[1]}, Fitness={best_solution[2]}")
+        f"Best solution for dataset: Techniques={best_solution[0]}, Models={best_solution[1]}, Fitness={best_solution[2]}")
     best_dataset_path = os.path.join(additional_info, f'best_optimized_dataset_{file_name}.csv')
     dataset_sample.to_csv(best_dataset_path, index=False)
     print(f"Optimized dataset saved at: {best_dataset_path}")
 else:
-    print(f"Best solution for model: Technique={best_solution[0]}, Fitness={best_solution[1]}")
+    print(f"Best solution for model: Techniques={best_solution[0]}, Fitness={best_solution[1]}")
     best_model_path = os.path.join(additional_info[1], f'best_model_{file_name}.pkl')
     joblib.dump(best_solution[0], best_model_path)
     print(f"Best model saved at: {best_model_path}")
