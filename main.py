@@ -1,3 +1,4 @@
+# main.py
 import pandas as pd
 from genetic_algorithm import genetic_algorithm
 from data_preparation import sample_dataset, prepare_data_dataset, prepare_data_for_model_optimization
