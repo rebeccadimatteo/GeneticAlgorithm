@@ -74,7 +74,7 @@ def fitness(data, technique, model, protected_attribute, target_column):
     """
     # Prepare data for modeling
     data = prepare_data_model(data, target_column)
-    X = data.drop(columns=[protected_attribute, target_column])
+    X = data.drop(columns=[target_column])
     y = data[target_column]
     X = pd.get_dummies(X, drop_first=True)
 

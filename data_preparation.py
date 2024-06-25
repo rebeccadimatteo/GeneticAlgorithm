@@ -1,7 +1,9 @@
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-def convert_target_to_categorical(dataset, target_column):
+
+def convert_target_to_categorical(dataset, target_column, num_bins=5):
     """
     Convert the target column to a categorical variable if it is continuous.
     If the target column is already categorical, this function does nothing.
@@ -9,14 +11,18 @@ def convert_target_to_categorical(dataset, target_column):
     Args:
         dataset (pd.DataFrame): The dataset containing the target column.
         target_column (str): The name of the target column to convert.
+        num_bins (int, optional): The number of bins to create. Default is 5.
 
     Returns:
         pd.DataFrame: The updated dataset with the target variable converted to categorical.
     """
     if pd.api.types.is_numeric_dtype(dataset[target_column]):
-        # Define bins and labels for categorical conversion
-        bins = [0, 2, 4, 6, 8, 10]
-        labels = [1, 2, 3, 4, 5]
+        # Generate bins and labels dynamically
+        min_val = dataset[target_column].min()
+        max_val = dataset[target_column].max()
+        bins = np.linspace(min_val, max_val, num_bins + 1)
+        labels = list(range(1, num_bins + 1))
+
         # Convert the target column to categorical
         dataset[target_column] = pd.cut(dataset[target_column], bins=bins, labels=labels, include_lowest=True)
     return dataset

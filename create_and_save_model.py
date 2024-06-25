@@ -9,7 +9,7 @@ import joblib
 # Main function
 def create_and_save_model():
     # Path to the dataset
-    file_path = input("Enter the path to the dataset (e.g., '/path/to/dataset.csv'): ").strip()
+    file_path = input("Enter the path to the dataset (e.g., '/path/to/dataset1.csv'): ").strip()
 
     try:
         # Loading the dataset
