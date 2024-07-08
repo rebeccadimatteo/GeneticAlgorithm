@@ -110,7 +110,7 @@ if operation == 'model':
 
 # Run the genetic algorithm for the selected operation
 best_solution = genetic_algorithm(operation, dataset_sample, protected_attribute, target_column, additional_info,
-                                  generations=2, population_size=5)
+                                  generations=10, population_size=20)
 
 # Print and save the best solution found by the genetic algorithm
 if operation == 'dataset':
