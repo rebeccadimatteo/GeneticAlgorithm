@@ -85,7 +85,7 @@ dataset_sample = prepare_data_dataset(dataset_sample, target_column)
 results = execute_genetic_algorithm_experiments(operation, dataset_sample, protected_attribute, target_column, output_dir, sample_fraction, 'experiment_results')
 
 # Salva i risultati nella cartella 'results'
-results_file_path = os.path.join(output_dir, 'genetic_algorithm_results.xlsx')
+results_file_path = os.path.join(output_dir, 'experiments_rq1_results.xlsx')
 save_results_to_excel(results, results_file_path)
 print(f"Results file saved at: {results_file_path}")
                                                                                                                   
