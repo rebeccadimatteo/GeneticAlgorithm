@@ -1,6 +1,10 @@
 import pandas as pd
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import LabelEncoder
+import os
+
+# Assicurarsi che la cartella results esista
+os.makedirs('results', exist_ok=True)
 
 # Caricamento del dataset
 data = pd.read_csv('Dataset/dataset1.csv')
@@ -19,13 +23,11 @@ for column in data.select_dtypes(include=['object']).columns:
 # Codifica delle etichette
 labels = LabelEncoder().fit_transform(labels)
 
-
 # Funzione per applicare FairSMOTE
 def apply_fair_smote(data, labels):
     smote = SMOTE(sampling_strategy='auto')
     data_res, labels_res = smote.fit_resample(data, labels)
     return pd.DataFrame(data_res, columns=data.columns), pd.Series(labels_res)
-
 
 # Funzione per applicare Reweighing
 def apply_reweighing(data, labels, protected_attribute):
@@ -44,14 +46,12 @@ def apply_reweighing(data, labels, protected_attribute):
 
     return data.drop(columns=['target'])
 
-
 # Funzione per applicare Disparate Impact Remover
 def apply_disparate_impact_remover(data, protected_attribute):
     data = data.copy()
     protected_mean = data.groupby(protected_attribute).transform('mean')
     data = (data - protected_mean) + data.mean()
     return data
-
 
 # Applicare le tecniche di preprocessing
 # FairSMOTE
@@ -68,12 +68,12 @@ dir_data = apply_disparate_impact_remover(data, 'Sex_Code_Text')
 dir_data['DecileScore'] = labels
 print("Disparate Impact Remover Applied")
 
-# Salva i risultati preprocessati in file CSV
-data_smote.to_csv('preprocessed_fair_smote.csv', index=False)
+# Salva i risultati preprocessati in file CSV nella cartella results
+data_smote.to_csv('results/preprocessed_fair_smote.csv', index=False)
 print("FairSMOTE Results Saved")
 
-reweighed_data.to_csv('preprocessed_reweighing.csv', index=False)
+reweighed_data.to_csv('results/preprocessed_reweighing.csv', index=False)
 print("Reweighing Results Saved")
 
-dir_data.to_csv('preprocessed_disparate_impact_remover.csv', index=False)
+dir_data.to_csv('results/preprocessed_disparate_impact_remover.csv', index=False)
 print("Disparate Impact Remover Results Saved")
